@@ -1,0 +1,14 @@
+# Dependencies
+node_modules/
+
+# Local secrets — never commit these. Real values live in Vercel env vars.
+.env
+.env.local
+.env.*.local
+
+# Vercel
+.vercel/
+
+# OS / editor
+.DS_Store
+*.log

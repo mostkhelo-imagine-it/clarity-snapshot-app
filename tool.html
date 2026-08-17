@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Your Clarity Snapshot · builtbymostafaK©</title>
+<style>
+  :root{
+    --paper:#faf7f2; --ink:#1a1917; --muted:#6b665e; --line:#e4ddd2;
+    --bubble-user:#ece5d9; --bubble-ai:#ffffff; --accent:#b08d57;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0; height:100%}
+  body{
+    background:var(--paper); color:var(--ink);
+    font-family:Georgia,"Times New Roman",serif; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    display:flex; flex-direction:column; height:100dvh;
+  }
+  header{
+    padding:1rem 1.2rem; border-bottom:1px solid var(--line);
+    display:flex; align-items:center; justify-content:space-between;
+    font-family:ui-sans-serif,system-ui,sans-serif;
+  }
+  header .brand{letter-spacing:.16em; text-transform:uppercase; font-size:.66rem; color:var(--muted)}
+  header .left{font-family:Georgia,serif; font-size:1.02rem}
+  header .meta{font-size:.72rem; color:var(--muted)}
+  main{flex:1; overflow-y:auto; padding:1.6rem 1.2rem}
+  .thread{max-width:680px; margin:0 auto; display:flex; flex-direction:column; gap:1.1rem}
+  .msg{white-space:pre-wrap; padding:.9rem 1.1rem; border-radius:3px; font-size:1.02rem}
+  .msg.ai{background:var(--bubble-ai); border:1px solid var(--line); align-self:flex-start; max-width:92%}
+  .msg.user{background:var(--bubble-user); align-self:flex-end; max-width:85%}
+  .typing{color:var(--muted); font-style:italic; align-self:flex-start}
+  footer{border-top:1px solid var(--line); padding:.9rem 1.2rem; background:var(--paper)}
+  .composer{max-width:680px; margin:0 auto; display:flex; gap:.6rem; align-items:flex-end}
+  textarea{
+    flex:1; resize:none; border:1px solid var(--line); border-radius:3px;
+    padding:.75rem .85rem; font-family:Georgia,serif; font-size:1rem; line-height:1.5;
+    background:#fff; color:var(--ink); max-height:160px; min-height:48px;
+  }
+  textarea:focus{outline:none; border-color:#c9bfae}
+  button.send{
+    background:var(--accent); color:var(--paper); border:0; border-radius:3px;
+    font-family:ui-sans-serif,system-ui,sans-serif; font-size:.9rem;
+    padding:.8rem 1.3rem; cursor:pointer; height:48px;
+  }
+  button.send:disabled{opacity:.4; cursor:default}
+  .center{max-width:520px; margin:auto; text-align:center; padding:2rem; font-family:Georgia,serif}
+  .center h2{font-weight:400; font-size:1.5rem; margin:.2rem 0 1rem}
+  .center p{color:#33302b}
+  .center a{
+    display:inline-block; margin-top:1rem; background:var(--accent); color:var(--paper);
+    text-decoration:none; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.9rem;
+    padding:.8rem 1.5rem; border-radius:2px;
+  }
+  .hidden{display:none}
+</style>
+</head>
+<body>
+  <header>
+    <div>
+      <div class="brand">builtbymostafaK©</div>
+      <div class="left">The Clarity Snapshot</div>
+    </div>
+    <div class="meta" id="meta"></div>
+  </header>
+
+  <main id="main">
+    <div class="thread" id="thread"></div>
+    <div class="center" id="gate">
+      <h2 id="gateTitle">Opening your session…</h2>
+      <p id="gateBody">One moment while we confirm and prepare a private space.</p>
+      <div id="gateCta"></div>
+    </div>
+  </main>
+
+  <footer id="footer" class="hidden">
+    <div class="composer">
+      <textarea id="input" rows="1" placeholder="Answer in your own words…"></textarea>
+      <button class="send" id="send">Send</button>
+    </div>
+  </footer>
+
+<script>
+  const qs = new URLSearchParams(location.search);
+  const sessionId = qs.get("_ptxn") || qs.get("txn");
+  let token = null;
+  let history = [];
+  let busy = false;
+
+  const el = {
+    thread: document.getElementById("thread"),
+    gate: document.getElementById("gate"),
+    gateTitle: document.getElementById("gateTitle"),
+    gateBody: document.getElementById("gateBody"),
+    gateCta: document.getElementById("gateCta"),
+    footer: document.getElementById("footer"),
+    input: document.getElementById("input"),
+    send: document.getElementById("send"),
+    meta: document.getElementById("meta"),
+  };
+
+  function showGate(title, body, ctaHtml){
+    el.gate.classList.remove("hidden");
+    el.gateTitle.textContent = title;
+    el.gateBody.textContent = body;
+    el.gateCta.innerHTML = ctaHtml || "";
+  }
+  function hideGate(){ el.gate.classList.add("hidden"); }
+
+  function bubble(role, text){
+    const div = document.createElement("div");
+    div.className = "msg " + (role === "assistant" ? "ai" : "user");
+    div.textContent = text;
+    el.thread.appendChild(div);
+    scrollDown();
+    return div;
+  }
+  function scrollDown(){ document.getElementById("main").scrollTop = 1e9; }
+
+  function typing(on){
+    let t = document.getElementById("typing");
+    if(on){
+      if(!t){
+        t = document.createElement("div");
+        t.id = "typing"; t.className = "typing"; t.textContent = "…";
+        el.thread.appendChild(t); scrollDown();
+      }
+    } else if(t){ t.remove(); }
+  }
+
+  async function callChat(){
+    const res = await fetch("/api/chat", {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({ token, messages: history }),
+    });
+    const data = await res.json().catch(()=>({}));
+    if(!res.ok){
+      if(data.error === "budget"){
+        return { end:true, msg:"This session has reached its natural close. What you found is yours to keep. When you're ready to go the whole way, a Clarity Session is the next step." };
+      }
+      if(data.error === "access-invalid"){
+        return { end:true, msg:"This session has expired. If you've just paid, reopen the link from your receipt." };
+      }
+      return { error:true, msg: data.error || "Something interrupted the conversation." };
+    }
+    return { reply: data.reply, remaining: data.remaining };
+  }
+
+  async function start(){
+    if(!sessionId){
+      showGate("This page is for paid sessions", "It looks like you arrived here without a completed payment.",
+        '<a href="/">Begin your Clarity Snapshot</a>');
+      return;
+    }
+    try{
+      const res = await fetch("/api/session?txn=" + encodeURIComponent(sessionId));
+      const data = await res.json();
+      if(!res.ok || !data.ok){
+        showGate("We couldn't confirm your payment",
+          data.error || "If you've just paid, wait a moment and refresh.",
+          '<a href="/">Return to the start</a>');
+        return;
+      }
+      token = data.token;
+      hideGate();
+      el.footer.classList.remove("hidden");
+
+      history.push({ role:"user", content:"Begin." });
+      typing(true);
+      const first = await callChat();
+      typing(false);
+      if(first.reply){
+        history.push({ role:"assistant", content: first.reply });
+        bubble("assistant", first.reply);
+        updateMeta(first.remaining);
+      } else {
+        bubble("assistant", first.msg || "Let's begin. What are you building?");
+      }
+    }catch(e){
+      showGate("Something went wrong", "Please refresh, or reopen the link from your receipt.", '<a href="/">Return to the start</a>');
+    }
+  }
+
+  function updateMeta(remaining){
+    if(remaining === null || remaining === undefined) return;
+    el.meta.textContent = remaining > 0 ? "" : "session complete";
+  }
+
+  async function sendMessage(){
+    if(busy) return;
+    const text = el.input.value.trim();
+    if(!text) return;
+    busy = true; el.send.disabled = true;
+    el.input.value = ""; autosize();
+    bubble("user", text);
+    history.push({ role:"user", content:text });
+    typing(true);
+    const out = await callChat();
+    typing(false);
+    if(out.reply){
+      history.push({ role:"assistant", content: out.reply });
+      bubble("assistant", out.reply);
+      updateMeta(out.remaining);
+    } else {
+      bubble("assistant", out.msg);
+      if(out.end){ el.footer.classList.add("hidden"); }
+    }
+    busy = false; el.send.disabled = false; el.input.focus();
+  }
+
+  function autosize(){
+    el.input.style.height = "auto";
+    el.input.style.height = Math.min(el.input.scrollHeight, 160) + "px";
+  }
+
+  el.send.addEventListener("click", sendMessage);
+  el.input.addEventListener("input", autosize);
+  el.input.addEventListener("keydown", (e)=>{
+    if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); sendMessage(); }
+  });
+
+  start();
+</script>
+</body>
+</html>

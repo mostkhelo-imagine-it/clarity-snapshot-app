@@ -1,0 +1,13 @@
+{
+  "name": "clarity-snapshot-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The Clarity Snapshot — a paid, gated web tool for builtbymostafaK© Creative Studio.",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1"
+  }
+}

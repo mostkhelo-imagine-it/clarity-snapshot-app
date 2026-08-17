@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pricing · The Clarity Snapshot · builtbymostafaK©</title>
+<meta name="description" content="The Clarity Snapshot: pay what feels right, from $10. One private, guided conversation that draws out your clarity." />
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<style>
+  :root{ --paper:#faf7f2; --ink:#1a1917; --muted:#6b665e; --line:#e4ddd2; --accent:#b08d57; }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--paper); color:var(--ink); font-family:Georgia,"Times New Roman",serif; line-height:1.6; -webkit-font-smoothing:antialiased; padding:3rem 2rem}
+  .wrap{max-width:760px; margin:0 auto}
+  .kicker{font-family:ui-sans-serif,system-ui,sans-serif; letter-spacing:.22em; text-transform:uppercase; font-size:.68rem; color:var(--muted); margin:0 0 1.4rem}
+  h1{font-size:2.3rem; line-height:1.15; font-weight:400; margin:0 0 1rem; letter-spacing:-.01em}
+  .lede{font-size:1.15rem; color:#33302b; max-width:600px; margin:0 0 2.4rem}
+  em{color:var(--accent); font-style:italic}
+  .choose{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 1rem}
+  .tiers{display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2.6rem}
+  .tier{flex:1 1 190px; background:#fff; border:1px solid var(--line); border-radius:6px; padding:1.6rem 1.4rem; text-align:center; transition:border-color .2s}
+  .tier:hover{border-color:var(--accent)}
+  .tier .amt{display:block; font-size:2rem}
+  .tier .lbl{display:block; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.74rem; letter-spacing:.05em; color:var(--muted); margin:.3rem 0 1.1rem}
+  .buy{display:inline-block; width:100%; background:transparent; border:1px solid var(--accent); color:var(--ink); border-radius:3px; font-family:Georgia,serif; font-size:1rem; padding:.7rem 0; cursor:pointer; transition:background .2s,color .2s}
+  .buy:hover{background:var(--accent); color:var(--paper)}
+  .status{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.85rem; color:var(--accent); min-height:1.2rem; margin:-1.4rem 0 2rem}
+  h2{font-size:1.35rem; font-weight:400; margin:2.4rem 0 1rem}
+  .incl{list-style:none; padding:0; margin:0}
+  .incl li{padding:.55rem 0; border-bottom:1px solid var(--line); color:#33302b; font-size:1.02rem}
+  .incl li:before{content:"·"; color:var(--accent); margin-right:.7rem}
+  .faq{margin-top:1rem}
+  .faq h3{font-size:1.05rem; font-weight:400; margin:1.4rem 0 .3rem}
+  .faq p{color:#4a463f; font-size:1rem; margin:0}
+  footer{margin-top:3.5rem; padding-top:1.5rem; border-top:1px solid var(--line); font-family:ui-sans-serif,system-ui,sans-serif; font-size:.78rem; color:var(--muted)}
+  footer a{color:var(--muted); margin-right:1.1rem; text-decoration:none}
+  footer a:hover{color:var(--accent)}
+  .rights{margin-top:1rem; letter-spacing:.03em}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="kicker">builtbymostafaK© · Creative Studio</p>
+    <h1>The Clarity Snapshot</h1>
+    <p class="lede">One private, guided conversation that draws out your essence, your core truth, and the single line that finally makes people say <em>"now I see it."</em> Pay what feels right.</p>
+
+    <p class="choose">Choose your amount</p>
+    <div class="tiers" id="tiers">
+      <div class="tier"><span class="amt">$10</span><span class="lbl">Begin</span><button class="buy" data-amt="10">Start</button></div>
+      <div class="tier"><span class="amt">$15</span><span class="lbl">Support the work</span><button class="buy" data-amt="15">Start</button></div>
+      <div class="tier"><span class="amt">$20</span><span class="lbl">Full value</span><button class="buy" data-amt="20">Start</button></div>
+    </div>
+    <p class="status" id="status"></p>
+
+    <h2>What you get</h2>
+    <ul class="incl">
+      <li>A private, guided 30–40 minute conversation in the studio's method</li>
+      <li>Your essence and core truth, named in your own words</li>
+      <li>A first-draft "now I see it" line for what you do</li>
+      <li>The three anchor words your presence should stand on</li>
+      <li>The one thing quietly blocking your clarity, and a single next step</li>
+      <li>Delivered instantly online, no account needed, completely confidential</li>
+    </ul>
+
+    <h2>Questions</h2>
+    <div class="faq">
+      <h3>Is this a real conversation or a template?</h3>
+      <p>A real conversation. The Companion listens and reflects, shaping your answers into a first structure, not a fill-in-the-blank form.</p>
+      <h3>How is it delivered?</h3>
+      <p>Immediately. After payment you're taken straight to a private chat page. Nothing to install, no account to create.</p>
+      <h3>Is my conversation private?</h3>
+      <p>Yes. Sessions are confidential and your conversation isn't stored on our servers. See the <a href="/privacy">Privacy Policy</a>.</p>
+      <h3>What if it doesn't help?</h3>
+      <p>If you're not satisfied, see the <a href="/refund">Refund Policy</a>. Reach out and we'll make it right.</p>
+    </div>
+
+    <footer>
+      <a href="/pay">Pricing</a><a href="/terms">Terms</a><a href="/privacy">Privacy</a><a href="/refund">Refund</a><a href="https://builtbymostafak.studio">Studio</a>
+      <div class="rights">© 2026 builtbymostafaK© Creative Studio. Clarity. Story. Structure. Payments handled by Paddle.com.</div>
+    </footer>
+  </div>
+
+<script>
+  let CFG=null; const statusEl=document.getElementById("status");
+  async function init(){
+    try{
+      const res=await fetch("/api/config"); CFG=await res.json();
+      if(!CFG.clientToken){statusEl.textContent="Checkout isn't configured yet.";return;}
+      if(window.Paddle){ Paddle.Environment.set(CFG.environment||"production"); Paddle.Initialize({token:CFG.clientToken}); }
+    }catch(e){ statusEl.textContent="Couldn't load checkout. Please refresh."; }
+  }
+  function openCheckout(amt){
+    if(!CFG||!window.Paddle){ statusEl.textContent="One moment, still loading."; return; }
+    const priceId=CFG.prices&&CFG.prices[String(amt)];
+    if(!priceId){ statusEl.textContent="That amount isn't set up yet."; return; }
+    statusEl.textContent="Opening secure checkout…";
+    Paddle.Checkout.open({ settings:{ displayMode:"overlay", theme:"light", successUrl:window.location.origin+"/tool" }, items:[{priceId:priceId, quantity:1}] });
+  }
+  document.getElementById("tiers").addEventListener("click",(e)=>{ const b=e.target.closest(".buy"); if(b) openCheckout(b.getAttribute("data-amt")); });
+  init();
+</script>
+</body>
+</html>
