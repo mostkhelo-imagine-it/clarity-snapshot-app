@@ -110,7 +110,9 @@
   /* The Arabic landing page sends buyers here with ?lang=ar, so the session they
    * paid for opens in the language they chose rather than resetting to English.
    * The Companion itself follows whatever language they type in. */
-  const AR = qs.get("lang") === "ar";
+  let stored = null;
+  try { stored = localStorage.getItem("bmk_lang"); } catch (e) {}
+  const AR = qs.get("lang") ? qs.get("lang") === "ar" : stored === "ar";
   const T = AR ? {
     title: "لمحة الوضوح · builtbymostafaK©",
     head: "لمحة الوضوح",
