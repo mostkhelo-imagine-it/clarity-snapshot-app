@@ -22,8 +22,27 @@
     display:flex; align-items:center; justify-content:space-between;
     font-family:ui-sans-serif,system-ui,sans-serif;
   }
-  header .brand{letter-spacing:.16em; text-transform:uppercase; font-size:.66rem; color:var(--muted)}
-  header .left{font-family:Georgia,serif; font-size:1.02rem}
+  header .brand{letter-spacing:.16em; text-transform:uppercase; font-size:.66rem; color:var(--muted); display:block}
+  header .left{font-family:Georgia,serif; font-size:1.02rem; display:block}
+  /* The header doubles as the way back to the studio. Without it this page is a
+     dead end, and it is the one people sit on for forty minutes. */
+  header .home{text-decoration:none; color:inherit; display:block}
+  header .home:hover .left{color:var(--accent)}
+  .headright{display:flex; align-items:center; gap:1rem}
+  .studio{
+    font-size:.72rem; color:var(--muted); text-decoration:none;
+    border:1px solid var(--line); border-radius:3px; padding:.4rem .8rem; white-space:nowrap;
+  }
+  .studio:hover{border-color:var(--accent); color:var(--accent)}
+  .studio::before{content:"\2190\00a0"}
+  html[dir="rtl"] .studio::before{content:"\2192\00a0"}
+  /* Arabic: cursive joins break under letter-spacing, and there is no uppercase. */
+  html[lang="ar"] body{font-family:'Amiri',Georgia,serif}
+  html[lang="ar"] .brand,
+  html[lang="ar"] .meta,
+  html[lang="ar"] #input,
+  html[lang="ar"] .send{font-family:'IBM Plex Sans Arabic',sans-serif; letter-spacing:normal; text-transform:none}
+  html[lang="ar"] .msg{font-family:'Amiri',Georgia,serif}
   header .meta{font-size:.72rem; color:var(--muted)}
   main{flex:1; overflow-y:auto; padding:1.6rem 1.2rem}
   .thread{max-width:680px; margin:0 auto; display:flex; flex-direction:column; gap:1.1rem}
@@ -58,11 +77,14 @@
 </head>
 <body>
   <header>
-    <div>
-      <div class="brand">builtbymostafaK©</div>
-      <div class="left">The Clarity Snapshot</div>
+    <a class="home" id="home" href="https://builtbymostafak.studio">
+      <span class="brand">builtbymostafaK©</span>
+      <span class="left" id="headTitle">The Clarity Snapshot</span>
+    </a>
+    <div class="headright">
+      <div class="meta" id="meta"></div>
+      <a class="studio" id="studio" href="https://builtbymostafak.studio">Studio</a>
     </div>
-    <div class="meta" id="meta"></div>
   </header>
 
   <main id="main">
@@ -84,6 +106,66 @@
 <script>
   const qs = new URLSearchParams(location.search);
   const sessionId = qs.get("_ptxn") || qs.get("txn");
+
+  /* The Arabic landing page sends buyers here with ?lang=ar, so the session they
+   * paid for opens in the language they chose rather than resetting to English.
+   * The Companion itself follows whatever language they type in. */
+  const AR = qs.get("lang") === "ar";
+  const T = AR ? {
+    title: "لمحة الوضوح · builtbymostafaK©",
+    head: "لمحة الوضوح",
+    opening: "جارٍ فتح جلستك…",
+    openingBody: "لحظة واحدة ريثما نؤكّد الدفع ونهيّئ مساحة خاصة.",
+    placeholder: "أجب بكلماتك أنت…",
+    send: "إرسال",
+    unpaid: "هذه الصفحة للجلسات المدفوعة",
+    unpaidBody: "يبدو أنك وصلت إلى هنا دون إتمام عملية دفع.",
+    begin: "ابدأ لمحة الوضوح",
+    noConfirm: "تعذّر تأكيد دفعتك",
+    back: "العودة إلى البداية",
+    wrong: "حدث خطأ ما",
+    wrongBody: "يرجى تحديث الصفحة، أو إعادة فتح الرابط من إيصالك.",
+    complete: "انتهت الجلسة",
+    studio: "الاستوديو",
+    home: "https://builtbymostafak.studio/ar/",
+    start: "/ar",
+  } : {
+    title: "Your Clarity Snapshot · builtbymostafaK©",
+    head: "The Clarity Snapshot",
+    opening: "Opening your session…",
+    openingBody: "One moment while we confirm and prepare a private space.",
+    placeholder: "Answer in your own words…",
+    send: "Send",
+    unpaid: "This page is for paid sessions",
+    unpaidBody: "It looks like you arrived here without a completed payment.",
+    begin: "Begin your Clarity Snapshot",
+    noConfirm: "We couldn't confirm your payment",
+    back: "Return to the start",
+    wrong: "Something went wrong",
+    wrongBody: "Please refresh, or reopen the link from your receipt.",
+    complete: "session complete",
+    studio: "Studio",
+    home: "https://builtbymostafak.studio",
+    start: "/",
+  };
+
+  if (AR) {
+    document.documentElement.lang = "ar";
+    document.documentElement.dir = "rtl";
+    const f = document.createElement("link");
+    f.rel = "stylesheet";
+    f.href = "https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500&display=swap";
+    document.head.appendChild(f);
+  }
+  document.title = T.title;
+  document.getElementById("headTitle").textContent = T.head;
+  document.getElementById("home").href = T.home;
+  document.getElementById("studio").href = T.home;
+  document.getElementById("studio").textContent = T.studio;
+  document.getElementById("gateTitle").textContent = T.opening;
+  document.getElementById("gateBody").textContent = T.openingBody;
+  document.getElementById("input").placeholder = T.placeholder;
+  document.getElementById("send").textContent = T.send;
   let token = null;
   let history = [];
   let busy = false;
@@ -150,17 +232,17 @@
 
   async function start(){
     if(!sessionId){
-      showGate("This page is for paid sessions", "It looks like you arrived here without a completed payment.",
-        '<a href="/">Begin your Clarity Snapshot</a>');
+      showGate(T.unpaid, T.unpaidBody,
+        `<a href="${T.start}">${T.begin}</a>`);
       return;
     }
     try{
       const res = await fetch("/api/session?txn=" + encodeURIComponent(sessionId));
       const data = await res.json();
       if(!res.ok || !data.ok){
-        showGate("We couldn't confirm your payment",
+        showGate(T.noConfirm,
           data.error || "If you've just paid, wait a moment and refresh.",
-          '<a href="/">Return to the start</a>');
+          `<a href="${T.start}">${T.back}</a>`);
         return;
       }
       token = data.token;
@@ -179,13 +261,13 @@
         bubble("assistant", first.msg || "Let's begin. What are you building?");
       }
     }catch(e){
-      showGate("Something went wrong", "Please refresh, or reopen the link from your receipt.", '<a href="/">Return to the start</a>');
+      showGate(T.wrong, T.wrongBody, `<a href="${T.start}">${T.back}</a>`);
     }
   }
 
   function updateMeta(remaining){
     if(remaining === null || remaining === undefined) return;
-    el.meta.textContent = remaining > 0 ? "" : "session complete";
+    el.meta.textContent = remaining > 0 ? "" : T.complete;
   }
 
   async function sendMessage(){
