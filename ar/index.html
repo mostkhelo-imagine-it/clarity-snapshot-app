@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>لمحة الوضوح · builtbymostafaK©</title>
-<meta name="description" content="اعثر على أول هيكل تحت ما تبنيه، قبل التصميم وقبل التسويق." />
+<meta name="description" content="أداة ذكاء اصطناعي مؤتمتة تفكّك فكرتك عبر عصف ذهني موجّه وتسلّمك خلاصة مكتوبة. شراء لمرة واحدة، 15 دولارًا." />
 <link rel="alternate" hreflang="en" href="https://clarity.builtbymostafak.studio/" />
 <link rel="alternate" hreflang="ar" href="https://clarity.builtbymostafak.studio/ar" />
 <link rel="alternate" hreflang="x-default" href="https://clarity.builtbymostafak.studio/" />
@@ -30,17 +30,15 @@
   .lede{font-size:1.2rem}
   em{color:var(--accent); font-style:normal; font-weight:700}
   .rule{height:1px; background:var(--line); border:0; margin:2rem 0}
-  .choose{font-family:'IBM Plex Sans Arabic',sans-serif; font-size:.85rem; color:var(--muted); margin:0 0 .9rem}
-  .tiers{display:flex; gap:.7rem; flex-wrap:wrap}
-  .tier{
-    flex:1 1 auto; min-width:120px; background:transparent; color:var(--ink);
-    border:1px solid var(--accent); border-radius:3px; cursor:pointer;
-    font-family:'Amiri',serif; padding:1rem 1.1rem; transition:background .2s,color .2s; text-align:center;
+  .price-row{display:flex; align-items:center; gap:1.4rem; flex-wrap:wrap}
+  .price{font-size:2.1rem; direction:ltr}
+  .price small{font-family:'IBM Plex Sans Arabic',sans-serif; font-size:.75rem; color:var(--muted); display:block; direction:rtl}
+  .begin{
+    background:var(--accent); color:var(--paper); border:1px solid var(--accent); border-radius:3px;
+    cursor:pointer; font-family:'Amiri',serif; font-size:1.15rem; padding:.95rem 2.4rem;
+    transition:opacity .2s;
   }
-  .tier:hover{background:var(--accent); color:var(--paper)}
-  .tier .amt{display:block; font-size:1.5rem; direction:ltr}
-  .tier .lbl{display:block; font-family:'IBM Plex Sans Arabic',sans-serif; font-size:.78rem; color:var(--muted); margin-top:.35rem}
-  .tier:hover .lbl{color:var(--paper)}
+  .begin:hover{opacity:.88}
   .fine{font-family:'IBM Plex Sans Arabic',sans-serif; font-size:.85rem; color:var(--muted); margin-top:1.2rem; line-height:1.9}
   .status{font-family:'IBM Plex Sans Arabic',sans-serif; font-size:.9rem; color:var(--accent); min-height:1.2rem; margin-top:.8rem}
   .footer{font-family:'IBM Plex Sans Arabic',sans-serif; font-size:.78rem; color:var(--muted); margin-top:2.6rem; line-height:2.2}
@@ -57,21 +55,19 @@
     <p class="lang"><a href="/" hreflang="en">English</a></p>
     <p class="kicker">builtbymostafaK© · استوديو إبداعي</p>
     <h1>لمحة الوضوح</h1>
-    <p class="lede">اعثر على أول هيكل تحت ما تبنيه، قبل التصميم وقبل التسويق.</p>
-    <p>معظم الناس لا يعانون مشكلة علامة تجارية، بل مشكلة وضوح. يشعرون برؤيتهم بعمق لكنهم لا يجدون لها الكلمات بعد، فيبقى كل ما يليها ضبابيًا لأن المركز لم يُسمَّ قط.</p>
-    <p>محادثة واحدة صادقة وخاصة تستخرج الجوهر. في نحو أربعين دقيقة تخرج بحقيقتك الأساسية، وبالجملة الواحدة التي تجعل الناس يقولون أخيرًا <em>«الآن أرى»</em>، وبالكلمات الثلاث التي ينبغي أن يقوم عليها حضورك كله، وبالشيء الوحيد الذي يعرقل وضوحك في صمت.</p>
+    <p class="lede">أداة ذكاء اصطناعي مؤتمتة تفكّك فكرتك وتسلّمك خلاصة مكتوبة.</p>
+    <p>لمحة الوضوح برنامج، صمّمه مصطفى خليل، مهندس علامات واستراتيجي. وهي ليست استشارة، ولا يشارك أي إنسان في الجلسة. تدير الأداة عصفًا ذهنيًا خاصًا ومنظّمًا يعمل بنموذج الذكاء الاصطناعي Claude من Anthropic: تسألك عن ما تبنيه، سؤالًا واحدًا في كل مرة، ثم تصوغ إجاباتك أنت في خلاصة مكتوبة واضحة.</p>
+    <p>في نحو أربعين دقيقة تخرج بحقيقتك الأساسية، وبالجملة الواحدة التي تجعل الناس يقولون أخيرًا <em>«الآن أرى»</em>، وبالكلمات الثلاث التي ينبغي أن يقوم عليها حضورك، وبخطوة تالية محددة. وتتولّد النتيجة فورًا، في الجلسة نفسها.</p>
     <hr class="rule" />
-    <p class="choose">ادفع ما تراه مناسبًا، اختر مبلغك</p>
-    <div class="tiers" id="tiers">
-      <button class="tier" data-amt="10"><span class="amt">$10</span><span class="lbl">ابدأ</span></button>
-      <button class="tier" data-amt="15"><span class="amt">$15</span><span class="lbl">ادعم العمل</span></button>
-      <button class="tier" data-amt="20"><span class="amt">$20</span><span class="lbl">القيمة الكاملة</span></button>
+    <div class="price-row">
+      <div class="price">$15<small>شراء لمرة واحدة</small></div>
+      <button class="begin" id="begin">ابدأ لمحتك</button>
     </div>
     <p class="status" id="status"></p>
-    <p class="fine">دفع عالمي آمن عبر Paddle. تصلك في اليوم نفسه. لا كوكيز. لا تتبّع. وضوح فقط.</p>
-    <p class="fine">المحادثة تجري بالعربية الفصحى. اكتب بلغتك ويجيبك المرافق بها.</p>
+    <p class="fine">دفع عالمي آمن عبر Paddle. تسليم رقمي فوري، دون حساب. لا كوكيز. لا تتبّع. وضوح فقط.</p>
+    <p class="fine">المحادثة تجري بالعربية الفصحى. اكتب بلغتك وتجيبك الأداة بها.</p>
     <p class="footer">
-      <a href="/ar/terms">الشروط</a> · <a href="/ar/privacy">الخصوصية</a> · <a href="/ar/refund">الاسترداد</a> · <a href="https://builtbymostafak.studio/ar/">الاستوديو</a><br />
+      <a href="/ar/pay">الأسعار</a> · <a href="/ar/terms">الشروط</a> · <a href="/ar/privacy">الخصوصية</a> · <a href="/ar/refund">الاسترداد</a> · <a href="https://builtbymostafak.studio/ar/">الاستوديو</a><br />
       © 2026 builtbymostafaK© استوديو إبداعي · builtbymostafak.studio
     </p>
   </main>
@@ -84,7 +80,7 @@
     try{
       const res = await fetch("/api/config");
       CFG = await res.json();
-      if(!CFG.clientToken){ statusEl.textContent = "الدفع غير مهيّأ بعد."; return; }
+      if(!CFG.clientToken || !CFG.price){ statusEl.textContent = "الدفع غير مهيّأ بعد."; return; }
       if(window.Paddle){
         Paddle.Environment.set(CFG.environment || "production");
         Paddle.Initialize({ token: CFG.clientToken });
@@ -92,10 +88,9 @@
     }catch(e){ statusEl.textContent = "تعذّر تحميل الدفع. يرجى تحديث الصفحة."; }
   }
 
-  function openCheckout(amt){
+  function openCheckout(){
     if(!CFG || !window.Paddle){ statusEl.textContent = "لحظة واحدة، ما زال التحميل جاريًا."; return; }
-    const priceId = CFG.prices && CFG.prices[String(amt)];
-    if(!priceId){ statusEl.textContent = "هذا المبلغ غير مهيّأ بعد."; return; }
+    if(!CFG.price){ statusEl.textContent = "الدفع غير مهيّأ بعد."; return; }
     statusEl.textContent = "جارٍ فتح الدفع الآمن…";
     Paddle.Checkout.open({
       settings: {
@@ -104,15 +99,11 @@
         locale: "ar",
         successUrl: window.location.origin + "/tool?lang=ar"
       },
-      items: [{ priceId: priceId, quantity: 1 }]
+      items: [{ priceId: CFG.price, quantity: 1 }]
     });
   }
 
-  document.getElementById("tiers").addEventListener("click", (e)=>{
-    const btn = e.target.closest(".tier");
-    if(btn) openCheckout(btn.getAttribute("data-amt"));
-  });
-
+  document.getElementById("begin").addEventListener("click", openCheckout);
   init();
 </script>
 </body>

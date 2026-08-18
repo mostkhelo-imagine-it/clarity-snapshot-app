@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Pricing · The Clarity Snapshot · builtbymostafaK©</title>
-<meta name="description" content="The Clarity Snapshot: pay what feels right, from $10. One private, guided conversation that draws out your clarity." />
+<meta name="description" content="The Clarity Snapshot: an automated AI tool, one-time purchase, US$15. A guided brainstorm that delivers a written conclusion instantly." />
 <link rel="alternate" hreflang="en" href="https://clarity.builtbymostafak.studio/pay" />
 <link rel="alternate" hreflang="ar" href="https://clarity.builtbymostafak.studio/ar/pay" />
 <link rel="alternate" hreflang="x-default" href="https://clarity.builtbymostafak.studio/pay" />
@@ -19,14 +19,11 @@
   h1{font-size:2.3rem; line-height:1.15; font-weight:400; margin:0 0 1rem; letter-spacing:-.01em}
   .lede{font-size:1.15rem; color:#33302b; max-width:600px; margin:0 0 2.4rem}
   em{color:var(--accent); font-style:italic}
-  .choose{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--muted); margin:0 0 1rem}
-  .tiers{display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2.6rem}
-  .tier{flex:1 1 190px; background:#fff; border:1px solid var(--line); border-radius:6px; padding:1.6rem 1.4rem; text-align:center; transition:border-color .2s}
-  .tier:hover{border-color:var(--accent)}
-  .tier .amt{display:block; font-size:2rem}
-  .tier .lbl{display:block; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.74rem; letter-spacing:.05em; color:var(--muted); margin:.3rem 0 1.1rem}
-  .buy{display:inline-block; width:100%; background:transparent; border:1px solid var(--accent); color:var(--ink); border-radius:3px; font-family:Georgia,serif; font-size:1rem; padding:.7rem 0; cursor:pointer; transition:background .2s,color .2s}
-  .buy:hover{background:var(--accent); color:var(--paper)}
+  .buybox{background:#fff; border:1px solid var(--line); border-radius:6px; padding:1.8rem; display:flex; align-items:center; justify-content:space-between; gap:1.4rem; flex-wrap:wrap; margin-bottom:2.6rem}
+  .buybox .amt{font-size:2.2rem}
+  .buybox .amt small{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.72rem; letter-spacing:.05em; color:var(--muted); display:block}
+  .buy{background:var(--accent); border:1px solid var(--accent); color:var(--paper); border-radius:3px; font-family:Georgia,serif; font-size:1.05rem; padding:.85rem 2.2rem; cursor:pointer; transition:opacity .2s}
+  .buy:hover{opacity:.88}
   .status{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.85rem; color:var(--accent); min-height:1.2rem; margin:-1.4rem 0 2rem}
   h2{font-size:1.35rem; font-weight:400; margin:2.4rem 0 1rem}
   .incl{list-style:none; padding:0; margin:0}
@@ -50,32 +47,30 @@
     <p class="lang"><a href="/ar/pay" hreflang="ar">عربي</a></p>
     <p class="kicker">builtbymostafaK© · Creative Studio</p>
     <h1>The Clarity Snapshot</h1>
-    <p class="lede">One private, guided conversation that draws out your essence, your core truth, and the single line that finally makes people say <em>"now I see it."</em> Pay what feels right.</p>
+    <p class="lede">An automated AI tool for creators. It runs a private, guided brainstorm about what you are building, breaks the idea down, and delivers a written conclusion, including the single line that finally makes people say <em>"now I see it."</em></p>
 
-    <p class="choose">Choose your amount</p>
-    <div class="tiers" id="tiers">
-      <div class="tier"><span class="amt">$10</span><span class="lbl">Begin</span><button class="buy" data-amt="10">Start</button></div>
-      <div class="tier"><span class="amt">$15</span><span class="lbl">Support the work</span><button class="buy" data-amt="15">Start</button></div>
-      <div class="tier"><span class="amt">$20</span><span class="lbl">Full value</span><button class="buy" data-amt="20">Start</button></div>
+    <div class="buybox">
+      <div class="amt">$15<small>one-time purchase · instant delivery</small></div>
+      <button class="buy" id="begin">Begin your Snapshot</button>
     </div>
     <p class="status" id="status"></p>
 
     <h2>What you get</h2>
     <ul class="incl">
-      <li>A private, guided 30–40 minute conversation in the studio's method</li>
+      <li>A private, guided 30–40 minute AI brainstorm in the studio's method</li>
       <li>Your essence and core truth, named in your own words</li>
       <li>A first-draft "now I see it" line for what you do</li>
       <li>The three anchor words your presence should stand on</li>
       <li>The one thing quietly blocking your clarity, and a single next step</li>
-      <li>Delivered instantly online, no account needed, completely confidential</li>
+      <li>Generated instantly in the session, no account needed, completely confidential</li>
     </ul>
 
     <h2>Questions</h2>
     <div class="faq">
-      <h3>Is this a real conversation or a template?</h3>
-      <p>A real conversation. The Companion listens and reflects, shaping your answers into a first structure, not a fill-in-the-blank form.</p>
+      <h3>Is a person involved in the session?</h3>
+      <p>No. The Clarity Snapshot is fully automated software. The conversation is run by an AI model (Claude, by Anthropic) following a method designed by the studio. No human reads, joins, or reviews your session, and it is not a consulting or advisory service.</p>
       <h3>How is it delivered?</h3>
-      <p>Immediately. After payment you're taken straight to a private chat page. Nothing to install, no account to create.</p>
+      <p>Immediately. After payment you're taken straight to a private chat page. Nothing to install, no account to create, and the written conclusion is generated in the same session.</p>
       <h3>Is my conversation private?</h3>
       <p>Yes. Sessions are confidential and your conversation isn't stored on our servers. See the <a href="/privacy">Privacy Policy</a>.</p>
       <h3>What if it doesn't help?</h3>
@@ -93,18 +88,17 @@
   async function init(){
     try{
       const res=await fetch("/api/config"); CFG=await res.json();
-      if(!CFG.clientToken){statusEl.textContent="Checkout isn't configured yet.";return;}
+      if(!CFG.clientToken||!CFG.price){statusEl.textContent="Checkout isn't configured yet.";return;}
       if(window.Paddle){ Paddle.Environment.set(CFG.environment||"production"); Paddle.Initialize({token:CFG.clientToken}); }
     }catch(e){ statusEl.textContent="Couldn't load checkout. Please refresh."; }
   }
-  function openCheckout(amt){
+  function openCheckout(){
     if(!CFG||!window.Paddle){ statusEl.textContent="One moment, still loading."; return; }
-    const priceId=CFG.prices&&CFG.prices[String(amt)];
-    if(!priceId){ statusEl.textContent="That amount isn't set up yet."; return; }
+    if(!CFG.price){ statusEl.textContent="Checkout isn't configured yet."; return; }
     statusEl.textContent="Opening secure checkout…";
-    Paddle.Checkout.open({ settings:{ displayMode:"overlay", theme:"light", successUrl:window.location.origin+"/tool" }, items:[{priceId:priceId, quantity:1}] });
+    Paddle.Checkout.open({ settings:{ displayMode:"overlay", theme:"light", successUrl:window.location.origin+"/tool" }, items:[{priceId:CFG.price, quantity:1}] });
   }
-  document.getElementById("tiers").addEventListener("click",(e)=>{ const b=e.target.closest(".buy"); if(b) openCheckout(b.getAttribute("data-amt")); });
+  document.getElementById("begin").addEventListener("click", openCheckout);
   init();
 </script>
 </body>

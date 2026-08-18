@@ -29,6 +29,19 @@ export async function initBudget(sid, budget, ttlSeconds) {
   await redis(["SET", `cs:${sid}`, String(budget), "EX", String(ttlSeconds), "NX"]);
 }
 
+// Free mode only. Caps how many sessions one address may open per day, so the
+// tool can be given away without leaving the Anthropic bill open-ended. This is
+// a speed bump, not authentication: it stops casual looping, not a determined
+// person with a fresh address.
+export async function claimFreeSession(fingerprint, maxPerDay, ttlSeconds = 86400) {
+  if (!usageEnabled) return { ok: false, reason: "no-store" };
+  const key = `cs:free:${fingerprint}`;
+  const used = Number(await redis(["INCR", key]));
+  if (used === 1) await redis(["EXPIRE", key, String(ttlSeconds)]);
+  if (used > maxPerDay) return { ok: false, reason: "daily-limit", used };
+  return { ok: true, used };
+}
+
 // Try to spend one message. Returns { ok, remaining, reason }.
 export async function spend(sid) {
   if (!usageEnabled) return { ok: true, remaining: null };

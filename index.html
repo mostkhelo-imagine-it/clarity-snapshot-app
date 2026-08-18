@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>The Clarity Snapshot · builtbymostafaK©</title>
-<meta name="description" content="Find the first structure beneath what you're building, before design, before marketing." />
+<meta name="description" content="An automated AI tool that breaks down your idea through a guided brainstorm and delivers a written conclusion. One-time purchase, US$15." />
 <link rel="alternate" hreflang="en" href="https://clarity.builtbymostafak.studio/" />
 <link rel="alternate" hreflang="ar" href="https://clarity.builtbymostafak.studio/ar" />
 <link rel="alternate" hreflang="x-default" href="https://clarity.builtbymostafak.studio/" />
@@ -25,17 +25,15 @@
   .lede{font-size:1.16rem}
   em{color:var(--accent); font-style:italic}
   .rule{height:1px; background:var(--line); border:0; margin:2rem 0}
-  .choose{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.8rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); margin:0 0 .9rem}
-  .tiers{display:flex; gap:.7rem; flex-wrap:wrap}
-  .tier{
-    flex:1 1 auto; min-width:120px; background:transparent; color:var(--ink);
-    border:1px solid var(--accent); border-radius:3px; cursor:pointer;
-    font-family:Georgia,serif; padding:1rem 1.1rem; transition:background .2s,color .2s; text-align:center;
+  .price-row{display:flex; align-items:center; gap:1.4rem; flex-wrap:wrap}
+  .price{font-size:2.1rem}
+  .price small{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.72rem; letter-spacing:.05em; color:var(--muted); display:block}
+  .begin{
+    background:var(--accent); color:var(--paper); border:1px solid var(--accent); border-radius:3px;
+    cursor:pointer; font-family:Georgia,serif; font-size:1.1rem; padding:.95rem 2.4rem;
+    transition:opacity .2s;
   }
-  .tier:hover{background:var(--accent); color:var(--paper)}
-  .tier .amt{display:block; font-size:1.5rem}
-  .tier .lbl{display:block; font-family:ui-sans-serif,system-ui,sans-serif; font-size:.72rem; letter-spacing:.04em; color:var(--muted); margin-top:.2rem}
-  .tier:hover .lbl{color:var(--paper)}
+  .begin:hover{opacity:.88}
   .fine{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.8rem; color:var(--muted); margin-top:1.2rem}
   .status{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.85rem; color:var(--accent); min-height:1.2rem; margin-top:.8rem}
   .footer{font-family:ui-sans-serif,system-ui,sans-serif; font-size:.72rem; color:var(--muted); letter-spacing:.04em; margin-top:2.6rem; line-height:2}
@@ -52,18 +50,16 @@
     <p class="lang"><a href="/ar" hreflang="ar">عربي</a></p>
     <p class="kicker">builtbymostafaK© · Creative Studio</p>
     <h1>The Clarity Snapshot</h1>
-    <p class="lede">Find the first structure beneath what you're building, before design, before marketing.</p>
-    <p>Most people don't have a branding problem. They have a clarity problem. They feel their vision deeply but can't yet find the words, and everything downstream stays foggy because the center was never named.</p>
-    <p>One honest, private conversation that draws the essence out. In about forty minutes you'll leave with your core truth, the single line that finally makes people say <em>"now I see it,"</em> the three words your whole presence should stand on, and the one thing quietly blocking your clarity.</p>
+    <p class="lede">An automated AI tool that breaks your idea down and hands you a written conclusion.</p>
+    <p>The Clarity Snapshot is software, designed by Mostafa Khalil, Brand Architect &amp; Strategist. It is not a consultation and no human takes part in the session. The tool runs a private, structured brainstorm powered by Claude, an AI model by Anthropic: it asks you questions about what you are building, one at a time, and shapes your own answers into a clear written conclusion.</p>
+    <p>In about forty minutes you leave with your core truth, the single line that finally makes people say <em>"now I see it,"</em> the three words your presence should stand on, and one concrete next step. The result is generated instantly, in the same session.</p>
     <hr class="rule" />
-    <p class="choose">Pay what feels right, choose your amount</p>
-    <div class="tiers" id="tiers">
-      <button class="tier" data-amt="10"><span class="amt">$10</span><span class="lbl">Begin</span></button>
-      <button class="tier" data-amt="15"><span class="amt">$15</span><span class="lbl">Support the work</span></button>
-      <button class="tier" data-amt="20"><span class="amt">$20</span><span class="lbl">Full value</span></button>
+    <div class="price-row">
+      <div class="price">$15<small>one-time purchase</small></div>
+      <button class="begin" id="begin">Begin your Snapshot</button>
     </div>
     <p class="status" id="status"></p>
-    <p class="fine">Secure global payment via Paddle. Yours the same day. No cookies. No tracking. Only clarity.</p>
+    <p class="fine">Secure global payment via Paddle. Instant digital delivery, no account needed. No cookies. No tracking. Only clarity.</p>
     <p class="footer">
       <a href="/pay">Pricing</a> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/refund">Refund</a> · <a href="https://builtbymostafak.studio">Studio</a><br />
       © 2026 builtbymostafaK© Creative Studio · builtbymostafak.studio
@@ -78,7 +74,7 @@
     try{
       const res = await fetch("/api/config");
       CFG = await res.json();
-      if(!CFG.clientToken){ statusEl.textContent = "Checkout isn't configured yet."; return; }
+      if(!CFG.clientToken || !CFG.price){ statusEl.textContent = "Checkout isn't configured yet."; return; }
       if(window.Paddle){
         Paddle.Environment.set(CFG.environment || "production");
         Paddle.Initialize({ token: CFG.clientToken });
@@ -86,10 +82,9 @@
     }catch(e){ statusEl.textContent = "Couldn't load checkout. Please refresh."; }
   }
 
-  function openCheckout(amt){
+  function openCheckout(){
     if(!CFG || !window.Paddle){ statusEl.textContent = "One moment, still loading."; return; }
-    const priceId = CFG.prices && CFG.prices[String(amt)];
-    if(!priceId){ statusEl.textContent = "That amount isn't set up yet."; return; }
+    if(!CFG.price){ statusEl.textContent = "Checkout isn't configured yet."; return; }
     statusEl.textContent = "Opening secure checkout…";
     Paddle.Checkout.open({
       settings: {
@@ -97,15 +92,11 @@
         theme: "light",
         successUrl: window.location.origin + "/tool"
       },
-      items: [{ priceId: priceId, quantity: 1 }]
+      items: [{ priceId: CFG.price, quantity: 1 }]
     });
   }
 
-  document.getElementById("tiers").addEventListener("click", (e)=>{
-    const btn = e.target.closest(".tier");
-    if(btn) openCheckout(btn.getAttribute("data-amt"));
-  });
-
+  document.getElementById("begin").addEventListener("click", openCheckout);
   init();
 </script>
 </body>

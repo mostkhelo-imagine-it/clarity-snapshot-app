@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>الأسعار · لمحة الوضوح · builtbymostafaK©</title>
-<meta name="description" content="لمحة الوضوح: ادفع ما تراه مناسبًا، ابتداءً من 10 دولارات. محادثة واحدة خاصة وموجّهة تستخرج وضوحك." />
+<meta name="description" content="لمحة الوضوح: أداة ذكاء اصطناعي مؤتمتة، شراء لمرة واحدة بسعر 15 دولارًا. عصف ذهني موجّه يسلّمك خلاصة مكتوبة فورًا." />
 <link rel="alternate" hreflang="en" href="https://clarity.builtbymostafak.studio/pay" />
 <link rel="alternate" hreflang="ar" href="https://clarity.builtbymostafak.studio/ar/pay" />
 <link rel="alternate" hreflang="x-default" href="https://clarity.builtbymostafak.studio/pay" />
@@ -23,14 +23,11 @@
   h1{font-size:2.5rem; line-height:1.3; font-weight:400; margin:0 0 1rem}
   .lede{font-size:1.18rem; color:#33302b; max-width:620px; margin:0 0 2.4rem}
   em{color:var(--accent); font-style:normal; font-weight:700}
-  .choose{font-family:'IBM Plex Sans Arabic',sans-serif; font-size:.85rem; color:var(--muted); margin:0 0 1rem}
-  .tiers{display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2.6rem}
-  .tier{flex:1 1 190px; background:#fff; border:1px solid var(--line); border-radius:6px; padding:1.6rem 1.4rem; text-align:center; transition:border-color .2s}
-  .tier:hover{border-color:var(--accent)}
-  .tier .amt{display:block; font-size:2rem; direction:ltr}
-  .tier .lbl{display:block; font-family:'IBM Plex Sans Arabic',sans-serif; font-size:.8rem; color:var(--muted); margin:.35rem 0 1.1rem}
-  .buy{display:inline-block; width:100%; background:transparent; border:1px solid var(--accent); color:var(--ink); border-radius:3px; font-family:'Amiri',serif; font-size:1.05rem; padding:.7rem 0; cursor:pointer; transition:background .2s,color .2s}
-  .buy:hover{background:var(--accent); color:var(--paper)}
+  .buybox{background:#fff; border:1px solid var(--line); border-radius:6px; padding:1.8rem; display:flex; align-items:center; justify-content:space-between; gap:1.4rem; flex-wrap:wrap; margin-bottom:2.6rem}
+  .buybox .amt{font-size:2.2rem; direction:ltr}
+  .buybox .amt small{font-family:'IBM Plex Sans Arabic',sans-serif; font-size:.75rem; color:var(--muted); display:block; direction:rtl}
+  .buy{background:var(--accent); border:1px solid var(--accent); color:var(--paper); border-radius:3px; font-family:'Amiri',serif; font-size:1.1rem; padding:.85rem 2.2rem; cursor:pointer; transition:opacity .2s}
+  .buy:hover{opacity:.88}
   .status{font-family:'IBM Plex Sans Arabic',sans-serif; font-size:.9rem; color:var(--accent); min-height:1.2rem; margin:-1.4rem 0 2rem}
   h2{font-size:1.45rem; font-weight:400; margin:2.4rem 0 1rem}
   .incl{list-style:none; padding:0; margin:0}
@@ -47,38 +44,37 @@
   .lang a{color:var(--accent); text-decoration:none; border:1px solid var(--line); padding:.35rem .7rem; border-radius:3px}
   .lang a:hover{border-color:var(--accent)}
 </style>
+<script>try{localStorage.setItem("bmk_lang","ar")}catch(e){}</script>
 </head>
 <body>
   <div class="wrap">
     <p class="lang"><a href="/pay" hreflang="en">English</a></p>
     <p class="kicker">builtbymostafaK© · استوديو إبداعي</p>
     <h1>لمحة الوضوح</h1>
-    <p class="lede">محادثة واحدة خاصة وموجّهة تستخرج جوهرك، وحقيقتك الأساسية، والجملة الواحدة التي تجعل الناس يقولون أخيرًا <em>«الآن أرى»</em>. ادفع ما تراه مناسبًا.</p>
+    <p class="lede">أداة ذكاء اصطناعي مؤتمتة للمبدعين. تدير عصفًا ذهنيًا خاصًا وموجّهًا حول ما تبنيه، وتفكّك الفكرة، وتسلّمك خلاصة مكتوبة، ومنها الجملة الواحدة التي تجعل الناس يقولون أخيرًا <em>«الآن أرى»</em>.</p>
 
-    <p class="choose">اختر مبلغك</p>
-    <div class="tiers" id="tiers">
-      <div class="tier"><span class="amt">$10</span><span class="lbl">ابدأ</span><button class="buy" data-amt="10">ابدأ</button></div>
-      <div class="tier"><span class="amt">$15</span><span class="lbl">ادعم العمل</span><button class="buy" data-amt="15">ابدأ</button></div>
-      <div class="tier"><span class="amt">$20</span><span class="lbl">القيمة الكاملة</span><button class="buy" data-amt="20">ابدأ</button></div>
+    <div class="buybox">
+      <div class="amt">$15<small>شراء لمرة واحدة · تسليم فوري</small></div>
+      <button class="buy" id="begin">ابدأ لمحتك</button>
     </div>
     <p class="status" id="status"></p>
 
     <h2>ما الذي تحصل عليه</h2>
     <ul class="incl">
-      <li>محادثة خاصة وموجّهة من 30 إلى 40 دقيقة بمنهج الاستوديو</li>
+      <li>عصف ذهني خاص وموجّه بالذكاء الاصطناعي من 30 إلى 40 دقيقة بمنهج الاستوديو</li>
       <li>جوهرك وحقيقتك الأساسية، مصوغة بكلماتك أنت</li>
       <li>مسوّدة أولى لجملة «الآن أرى» التي تصف ما تفعله</li>
       <li>الكلمات الثلاث التي ينبغي أن يقوم عليها حضورك</li>
       <li>الشيء الوحيد الذي يعرقل وضوحك، وخطوة تالية واحدة</li>
-      <li>تُسلَّم فورًا عبر الإنترنت، دون حساب، وبسرّية تامة</li>
+      <li>تتولّد فورًا في الجلسة، دون حساب، وبسرّية تامة</li>
     </ul>
 
     <h2>أسئلة</h2>
     <div class="faq">
-      <h3>هل هذه محادثة حقيقية أم قالب جاهز؟</h3>
-      <p>محادثة حقيقية. ينصت المرافق ويعكس، ويصوغ إجاباتك في أول هيكل، لا في نموذج تملأ فراغاته.</p>
+      <h3>هل يشارك أي شخص في الجلسة؟</h3>
+      <p>لا. لمحة الوضوح برنامج مؤتمت بالكامل. يدير المحادثة نموذج ذكاء اصطناعي (Claude من Anthropic) وفق منهج صمّمه الاستوديو. لا يقرأ أي إنسان جلستك ولا ينضم إليها ولا يراجعها، وهي ليست خدمة استشارية.</p>
       <h3>كيف تُسلَّم؟</h3>
-      <p>فورًا. بعد الدفع تنتقل مباشرة إلى صفحة محادثة خاصة. لا شيء تثبّته، ولا حساب تنشئه.</p>
+      <p>فورًا. بعد الدفع تنتقل مباشرة إلى صفحة محادثة خاصة. لا شيء تثبّته، ولا حساب تنشئه، وتتولّد الخلاصة المكتوبة في الجلسة نفسها.</p>
       <h3>هل محادثتي سرّية؟</h3>
       <p>نعم. الجلسات سرّية ولا تُخزَّن محادثتك على خوادمنا. انظر <a href="/ar/privacy">سياسة الخصوصية</a>.</p>
       <h3>وإن لم تفدني؟</h3>
@@ -92,23 +88,21 @@
   </div>
 
 <script>
-  try { localStorage.setItem("bmk_lang", "ar"); } catch (e) {}
   let CFG=null; const statusEl=document.getElementById("status");
   async function init(){
     try{
       const res=await fetch("/api/config"); CFG=await res.json();
-      if(!CFG.clientToken){statusEl.textContent="الدفع غير مهيّأ بعد.";return;}
+      if(!CFG.clientToken||!CFG.price){statusEl.textContent="الدفع غير مهيّأ بعد.";return;}
       if(window.Paddle){ Paddle.Environment.set(CFG.environment||"production"); Paddle.Initialize({token:CFG.clientToken}); }
     }catch(e){ statusEl.textContent="تعذّر تحميل الدفع. يرجى تحديث الصفحة."; }
   }
-  function openCheckout(amt){
+  function openCheckout(){
     if(!CFG||!window.Paddle){ statusEl.textContent="لحظة واحدة، ما زال التحميل جاريًا."; return; }
-    const priceId=CFG.prices&&CFG.prices[String(amt)];
-    if(!priceId){ statusEl.textContent="هذا المبلغ غير مهيّأ بعد."; return; }
+    if(!CFG.price){ statusEl.textContent="الدفع غير مهيّأ بعد."; return; }
     statusEl.textContent="جارٍ فتح الدفع الآمن…";
-    Paddle.Checkout.open({ settings:{ displayMode:"overlay", theme:"light", locale:"ar", successUrl:window.location.origin+"/tool?lang=ar" }, items:[{priceId:priceId, quantity:1}] });
+    Paddle.Checkout.open({ settings:{ displayMode:"overlay", theme:"light", locale:"ar", successUrl:window.location.origin+"/tool?lang=ar" }, items:[{priceId:CFG.price, quantity:1}] });
   }
-  document.getElementById("tiers").addEventListener("click",(e)=>{ const b=e.target.closest(".buy"); if(b) openCheckout(b.getAttribute("data-amt")); });
+  document.getElementById("begin").addEventListener("click", openCheckout);
   init();
 </script>
 </body>

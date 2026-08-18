@@ -2,7 +2,7 @@
 
 A paid, gated web tool for **builtbymostafaK© Creative Studio**.
 
-Flow: a button on your site → **Paddle** checkout (choose $10 / $15 / $20) → after payment, the buyer lands on a private chat page on your domain that runs the **Clarity Companion** (powered by Claude). No buyer account needed. The AI key stays on the server, and each purchase unlocks a capped number of messages so a shared link can't run up your bill.
+Flow: a button on your site → **Paddle** checkout (fixed price, US$15) → after payment, the buyer lands on a private chat page on your domain that runs the **Clarity Companion** (powered by Claude). No buyer account needed. The AI key stays on the server, and each purchase unlocks a capped number of messages so a shared link can't run up your bill.
 
 Payment uses **Paddle**, a merchant of record: Paddle sells to your customers worldwide in USD, collects and remits all sales tax/VAT for you, and pays you out — and Egypt is supported as a seller country.
 
@@ -30,7 +30,7 @@ Payment uses **Paddle**, a merchant of record: Paddle sells to your customers wo
 
 ## Setup
 
-1. **Paddle** — sign up at paddle.com, complete seller verification, create a product "The Clarity Snapshot" with three one-time prices ($10/$15/$20). Your price IDs and client token are already filled into `api/config.js`. Under **Developer tools → Authentication**, copy your **API key** (`pdl_live_...`) — the one secret you set in Vercel as `PADDLE_API_KEY`. Under **Checkout → Checkout settings**, set your default payment link + approved domain to `clarity.builtbymostafak.studio`.
+1. **Paddle** — sign up at paddle.com, complete seller verification, The app sells at one one-time price of US$15, using the existing $15 price id already in `api/config.js`. To change it, set `PADDLE_PRICE_15` in Vercel to a different price id. Under **Developer tools → Authentication**, copy your **API key** (`pdl_live_...`) — the one secret you set in Vercel as `PADDLE_API_KEY`. Under **Checkout → Checkout settings**, set your default payment link + approved domain to `clarity.builtbymostafak.studio`.
 2. **Anthropic** — create an API key at console.anthropic.com and set a monthly spend cap.
 3. **Upstash** — create a Redis database, copy the REST URL + token.
 4. **App secret** — generate one: `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`.
@@ -55,7 +55,7 @@ SESSION_TTL_SECONDS       = 86400
 
 ## Test before going live
 
-You're on live Paddle, so test with a real card: buy the $10 tier yourself, confirm the chat opens and gives a Snapshot, then refund yourself from the Paddle dashboard. (To test without real money instead, set `PADDLE_ENVIRONMENT=sandbox`, use sandbox Paddle keys, and Paddle's test card.)
+You're on live Paddle, so test with a real card: buy it yourself at $15, confirm the chat opens and gives a Snapshot, then refund yourself from the Paddle dashboard. (To test without real money instead, set `PADDLE_ENVIRONMENT=sandbox`, use sandbox Paddle keys, and Paddle's test card.)
 
 ## Tuning it to sound like you
 
